@@ -1,0 +1,15 @@
+{
+  "evaluation_cases": 10,
+  "baseline": {
+    "bug_accuracy": "40%",
+    "secrets_caught": "0/7",
+    "avg_time_minutes": 8.0,
+    "cost_per_task": "$0.05"
+  },
+  "ghost": {
+    "bug_accuracy": "100%",
+    "secrets_caught": "7/7",
+    "avg_time_minutes": 0.75,
+    "cost_per_task": "$0.02"
+  }
+}
