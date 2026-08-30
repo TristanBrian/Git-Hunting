@@ -1,0 +1,51 @@
+{
+    "incident_id": "INC-1788075300",
+    "agents": [
+        {
+            "agent": "1. Detective Agent",
+            "status": "COMPLETED",
+            "tool": "git log -p",
+            "input": "File \"auth.py\", line 10, in get_user_data\n    return user_data['id']\nTypeError: 'dict' object is not subscriptable",
+            "output": "diff --git a/auth.py b/auth.py\nindex 832f...39a1 100644\n--- a/auth.py\n+++ b/auth.py\n@@ -8,3 +8,3 @@ def get_user_data(user_id):\n     user_data = db.query(user_id)\n     stripe_key = \"mock_stripe_key_51MxxABCDEF\"\n-    return user_data['id']\n+    return user_data.get('id')",
+            "output_file": "auth.py"
+        },
+        {
+            "agent": "2. Security Pariah (CEH)",
+            "status": "COMPLETED",
+            "input": "diff --git a/auth.py b/auth.py\nindex 832f...39a1 100644\n--- a/auth.py\n+++ b/auth.py\n@@ -8,3 +8,3 @@ def get_user_data(user_id):\n     user_data = db.query(user_id)\n     stripe_key = \"mock_stripe_key_51MxxABCDEF\"\n-    return user_data['id']\n+    return user_data.get('id')",
+            "output": {
+                "score": 0,
+                "findings": [
+                    {
+                        "type": "Secret Leak",
+                        "name": "Stripe Live Key",
+                        "severity": "Critical",
+                        "match": "mock_stripe_key_51MxxABCDEF"
+                    }
+                ]
+            },
+            "debt_score": 0,
+            "findings_count": 1
+        },
+        {
+            "agent": "3. The Bouncer (Orchestrator)",
+            "status": "ENFORCED",
+            "rule": "Override injected if Critical Secret Leak detected."
+        },
+        {
+            "agent": "4. Remediation Engineer",
+            "status": "COMPLETED",
+            "model": "gpt-4o",
+            "input": "Fix auth.py. Bouncer rule applied.",
+            "output": "--- a/auth.py\n+++ b/auth.py\n@@ -8,3 +8,3 @@ def get_user_data(user_id):\n     user_data = db.query(user_id)\n-    stripe_key = \"mock_stripe_key_51MxxABCDEF\"\n-    return user_data['id']\n+    stripe_key = os.getenv(\"STRIPE_API_KEY\")\n+    return user_data.get('id', None)",
+            "output_format": "unified_diff"
+        },
+        {
+            "agent": "5. Testsmith Agent",
+            "status": "COMPLETED",
+            "input": "Write pytest for --- a/auth.py\n+++ b/auth.py...",
+            "output": "import pytest\nimport os\nfrom auth import get_user_data\n\ndef test_get_user_data_handles_none():\n    assert get_user_data('invalid_user') is None\n\ndef test_no_hardcoded_secrets():\n    assert os.getenv('STRIPE_API_KEY') is not None",
+            "output_format": "pytest"
+        }
+    ]
+}
