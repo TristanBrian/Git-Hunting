@@ -9,6 +9,12 @@
 [![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions%20Passing-brightgreen.svg)](.github/workflows/devsecops-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+<br>
+<div align="center">
+  <video src="https://github.com/TristanBrian/Git-Hunting/raw/master/ghost_final_pitch.mp4" width="100%" controls="controls" muted="muted"></video>
+</div>
+<br>
+
 ---
 
 ## 🎯 1. THE MISSION & PROBLEM STATEMENT
