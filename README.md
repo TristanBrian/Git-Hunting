@@ -3,6 +3,7 @@
 > *Built for the micro1 Agentic Workflows Hackathon*
 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Streamlit%20Cloud-FF4B4B.svg)](https://git-hunting.streamlit.app/)
 [![Streamlit](https://img.shields.io/badge/streamlit-1.27+-FF4B4B.svg)](https://streamlit.io/)
 [![OpenAI / OpenRouter / DeepSeek](https://img.shields.io/badge/AI-OpenAI%20%7C%20DeepSeek%20%7C%20Groq-green.svg)](https://openrouter.ai/)
 [![Docker 1-Click](https://img.shields.io/badge/Docker-1--Click%20Reproducible-blue.svg)](Dockerfile)
