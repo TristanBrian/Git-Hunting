@@ -1,0 +1,19 @@
+{
+  "agent_name": "The Bouncer (Orchestrator Gate)",
+  "role": "Security Decision Enforcement Gate",
+  "inputs": {
+    "security_score": 85,
+    "findings": [
+      { "type": "Secret Leak", "name": "Stripe Live", "severity": "Critical" }
+    ]
+  },
+  "decision_logic": {
+    "rule": "If findings include Critical Secret Leak OR security_score < 70, inject mandatory security remediation prompt to Remediation Engineer.",
+    "evaluated_condition": "Critical Secret Leak detected (Stripe Live Key present in diff).",
+    "override_instruction": "CRITICAL: Fix secrets FIRST. Replace hardcoded keys with os.getenv('STRIPE_KEY'). Target file: auth.py"
+  },
+  "final_output": {
+    "gate_status": "ENFORCED",
+    "remediation_instruction": "CRITICAL: Fix secrets FIRST. Replace hardcoded keys with os.getenv('STRIPE_KEY'). Target file: auth.py"
+  }
+}

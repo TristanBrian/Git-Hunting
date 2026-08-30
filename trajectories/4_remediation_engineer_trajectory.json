@@ -1,0 +1,17 @@
+{
+  "agent_name": "Remediation Engineer",
+  "role": "Unified Diff Patch Generator",
+  "inputs": {
+    "target_file": "auth.py",
+    "ci_log": "TypeError: 'dict' object is not subscriptable",
+    "raw_diff": "--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n- STRIPE_API_KEY = os.getenv('STRIPE_KEY')\n+ STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n return user_data",
+    "instruction": "CRITICAL: Fix secrets FIRST. Replace hardcoded keys with os.getenv('STRIPE_KEY'). Target file: auth.py"
+  },
+  "llm_prompt": {
+    "model": "openai/gpt-4o",
+    "system_prompt": "You are a Senior DevSecOps Engineer. Output ONLY the unified diff for auth.py."
+  },
+  "final_output": {
+    "patch_code": "--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n-    STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n+    STRIPE_API_KEY = os.getenv(\"STRIPE_KEY\")\n-    return user_data\n+    return user_data['id']"
+  }
+}

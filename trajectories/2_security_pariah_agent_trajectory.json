@@ -1,0 +1,20 @@
+{
+  "agent_name": "Security Pariah (CEH Agent)",
+  "role": "5-Layer Static Vulnerability Analysis Engine",
+  "inputs": {
+    "raw_diff": "--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n- STRIPE_API_KEY = os.getenv('STRIPE_KEY')\n+ STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n return user_data"
+  },
+  "scan_layers": [
+    { "layer": 1, "name": "Secrets Regex Scanner", "result": "CRITICAL - Detected Stripe Live Key 'mock_stripe_key_998877665544332211009988'", "deduction": 15 },
+    { "layer": 2, "name": "Bandit SAST Scanner", "result": "PASS - No AST code execution flaws", "deduction": 0 },
+    { "layer": 3, "name": "Dependency Audit", "result": "PASS - Clean requirements.txt", "deduction": 0 },
+    { "layer": 4, "name": "SQL Injection Engine", "result": "PASS - No raw string concatenation in SQL queries", "deduction": 0 },
+    { "layer": 5, "name": "JWT Entropy Scanner", "result": "PASS - No hardcoded JWT tokens", "deduction": 0 }
+  ],
+  "final_output": {
+    "security_score": 85,
+    "findings": [
+      { "type": "Secret Leak", "name": "Stripe Live", "severity": "Critical" }
+    ]
+  }
+}

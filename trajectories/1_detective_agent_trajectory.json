@@ -1,0 +1,33 @@
+{
+  "agent_name": "Detective Agent",
+  "role": "Commit & Traceback Analyzer",
+  "inputs": {
+    "repo_url": "https://github.com/TristanBrian/camguard-portal",
+    "branch": "main",
+    "ci_log": "File 'auth.py', line 10, in get_user_data\n    return user_data['id']\nTypeError: 'dict' object is not subscriptable"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "action": "clone_repository",
+      "args": { "repo_url": "https://github.com/TristanBrian/camguard-portal", "branch": "main" },
+      "output": "Cloned into temporary path /tmp/ghost_x89a1b"
+    },
+    {
+      "step": 2,
+      "action": "parse_stack_trace",
+      "regex": "File ['\"]([^'\"]+)['\"]",
+      "result_target_file": "auth.py"
+    },
+    {
+      "step": 3,
+      "action": "execute_git_log",
+      "command": "git log -n 3 --pretty=format:%h - %s -p -- auth.py",
+      "raw_stdout": "commit a1b2c3d - Fix login route\n--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n- STRIPE_API_KEY = os.getenv('STRIPE_KEY')\n+ STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n return user_data"
+    }
+  ],
+  "final_output": {
+    "target_file": "auth.py",
+    "raw_diff": "--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n- STRIPE_API_KEY = os.getenv('STRIPE_KEY')\n+ STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n return user_data"
+  }
+}

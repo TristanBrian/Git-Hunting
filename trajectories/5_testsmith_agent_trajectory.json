@@ -1,0 +1,16 @@
+{
+  "agent_name": "Testsmith Agent",
+  "role": "Pytest Regression Suite Builder",
+  "inputs": {
+    "target_file": "auth.py",
+    "ci_log": "TypeError: 'dict' object is not subscriptable",
+    "fix_code": "--- a/auth.py\n+++ b/auth.py\n@@ -1,5 +1,5 @@\n-    STRIPE_API_KEY = \"mock_stripe_key_998877665544332211009988\"\n+    STRIPE_API_KEY = os.getenv(\"STRIPE_KEY\")\n-    return user_data\n+    return user_data['id']"
+  },
+  "llm_prompt": {
+    "model": "openai/gpt-4o",
+    "system_prompt": "You write Python pytest code. Output only raw code."
+  },
+  "final_output": {
+    "test_code": "import pytest\nfrom unittest.mock import patch\n\ndef test_auth_user_id_regression():\n    \"\"\"Ensures get_user_data returns user ID integer, not raw dictionary.\"\"\"\n    with patch('app.auth.get_db') as mock_db:\n        mock_db.return_value = {\"id\": 1, \"name\": \"Test User\"}\n        result = get_user_data(1)\n        assert result == 1"
+  }
+}
