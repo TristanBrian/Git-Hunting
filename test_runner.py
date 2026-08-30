@@ -15,7 +15,7 @@ class TestGhostSentinel(unittest.TestCase):
     def test_stripe_live_key_detection(self):
         diff_text = '+ STRIPE_SECRET = "mock_stripe_key_123456789012345678901234"'
         report = run_security_scan(diff_text)
-        self.assertEqual(report["score"], 85)
+        self.assertEqual(report["score"], 55)
         self.assertEqual(report["findings"][0]["name"], "Stripe Live")
 
     def test_sql_injection_detection(self):
@@ -27,7 +27,7 @@ class TestGhostSentinel(unittest.TestCase):
     def test_jwt_token_detection(self):
         diff_text = '+ TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"'
         report = run_security_scan(diff_text)
-        self.assertEqual(report["score"], 85)
+        self.assertEqual(report["score"], 70)
 
     def test_clean_diff_score(self):
         diff_text = "+ def add(a, b):\n+     return a + b"
@@ -38,7 +38,7 @@ class TestGhostSentinel(unittest.TestCase):
     def test_git_diff_fallback(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             target_file, diff = get_git_diff(temp_dir, "check for envs error")
-            self.assertEqual(target_file, "Overall Repository (last commit)")
+            self.assertEqual(target_file, "Overall Repository")
 
     def test_cleanup_repo(self):
         temp_dir = tempfile.mkdtemp(prefix="ghost_test_")

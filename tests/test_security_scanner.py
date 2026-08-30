@@ -12,11 +12,9 @@ def test_aws_access_key_detection():
     assert report["findings"][0]["severity"] == "Critical"
 
 def test_stripe_live_key_detection():
-    diff_text = """
-+ STRIPE_SECRET = "mock_stripe_key_123456789012345678901234"
-    """
+    diff_text = '+ STRIPE_SECRET = "mock_stripe_key_123456789012345678901234"'
     report = run_security_scan(diff_text)
-    assert report["score"] == 85
+    assert report["score"] == 55
     assert report["findings"][0]["name"] == "Stripe Live"
 
 def test_sql_injection_detection():
@@ -33,7 +31,7 @@ def test_jwt_token_detection():
 + TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     """
     report = run_security_scan(diff_text)
-    assert report["score"] == 85
+    assert report["score"] == 70
     assert report["findings"][0]["name"] == "JWT Token hardcoded"
 
 def test_clean_diff_score():

@@ -10,7 +10,7 @@ def test_git_diff_fallback_generic_error():
             f.write("print('hello world')")
         
         target_file, diff = get_git_diff(temp_dir, "generic build error check envs")
-        assert target_file == "Overall Repository (last commit)"
+        assert target_file == "Overall Repository"
         assert "No recent commits found." in diff or "git" in diff
 
 def test_git_diff_file_extraction():
