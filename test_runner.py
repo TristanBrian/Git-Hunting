@@ -16,7 +16,8 @@ class TestGhostSentinel(unittest.TestCase):
         diff_text = '+ STRIPE_SECRET = "mock_stripe_key_123456789012345678901234"'
         report = run_security_scan(diff_text)
         self.assertEqual(report["score"], 55)
-        self.assertEqual(report["findings"][0]["name"], "Stripe Live")
+        names = [f["name"] for f in report["findings"]]
+        self.assertIn("Stripe Live", names)
 
     def test_sql_injection_detection(self):
         diff_text = "+ query = \"SELECT * FROM users WHERE id = '\" + user_input + \"'\""

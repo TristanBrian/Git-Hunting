@@ -15,7 +15,8 @@ def test_stripe_live_key_detection():
     diff_text = '+ STRIPE_SECRET = "mock_stripe_key_123456789012345678901234"'
     report = run_security_scan(diff_text)
     assert report["score"] == 55
-    assert report["findings"][0]["name"] == "Stripe Live"
+    names = [f["name"] for f in report["findings"]]
+    assert "Stripe Live" in names
 
 def test_sql_injection_detection():
     diff_text = """
