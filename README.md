@@ -113,6 +113,17 @@ flowchart TD
 7. **🕵️ Live UI Trajectories Inspector**:
    - Streamlit expander tab rendering step-by-step agent instructions, tool calls, and outputs live in the UI.
 
+### 💻 Technologies Used
+- **Python 3.10**: Core application language
+- **Streamlit**: Web framework for the interactive DevSecOps Incident Command Center
+- **OpenAI / OpenRouter**: The LLM engine powering the 5-agent orchestration (`gpt-4o` / DeepSeek / Groq)
+- **Ollama**: For 100% local, air-gapped AI execution (using `qwen2.5-coder:7b`)
+- **Docker**: For zero-cost, 1-click containerized reproducibility
+- **FFmpeg**: For automated generation of the final pitch video presentation
+- **Bandit SAST**: Python Abstract Syntax Tree (AST) static analysis for Layer 2 security auditing
+- **GitPython**: For automated multi-branch repository cloning and raw diff extraction
+- **GitHub Actions**: For the automated CI/CD DevSecOps pipeline testing
+
 ---
 
 ## 🎨 4. END-TO-END QUALITY
