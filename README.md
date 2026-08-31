@@ -152,6 +152,11 @@ GHOST produces production-ready deliverables that an SRE Lead would immediately 
 | **Human Time Per Task** | 8.0 minutes | **0.75 minutes (< 45s)** | **-90.6% time saved** |
 | **Cost Per Task** | $0.05 | **$0.02** | **-60.0% cost saved** |
 
+### 🔬 The Most Challenging Case & What It Revealed
+* **The Case (Case #3 - SQL Injection):** This case involved a deeply nested SQL Injection where a raw string concatenation was split across multiple lines and variables before being passed to `db.execute()`. 
+* **The Baseline Failure:** The simple LLM baseline successfully patched the syntax error that broke the build, but *entirely ignored* the injection vulnerability. Because its system prompt only prioritized "getting the build green," it prioritized speed over confidentiality.
+* **What It Revealed:** This revealed the absolute necessity of our **6-Layer CEH Superweapon** and **Bouncer Orchestrator**. AI Agents are inherently single-minded and focused strictly on their immediate objective (the stack trace). By inserting a deterministic Regex/Bandit SAST scanner *before* the Remediation agent, and enforcing a Zero-Trust Orchestrator gate, we physically force the agent to resolve the vulnerability. **Without strict, algorithmic security boundaries, AI cannot be trusted to patch production code.**
+
 ### Evolution Changelog
 
 | STAGE | WHAT YOU TRIED AND WHY | EVIDENCE | DECISION / LEARNING |
